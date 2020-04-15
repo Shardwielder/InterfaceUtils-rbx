@@ -66,6 +66,9 @@ local function prepareGuiObject(imageAssetId, guiObject, cornerRadius)
     return guiObject
 end
 
+--[[
+    
+]]
 function RoundCorners.roundElement(guiObject, cornerRadius)
     assert(guiObject, NON_COMPATIBLE_GUI_ERROR:format("#1 guiObject", "RoundCorners.roundElement"))
     assert(type(cornerRadius) == "number", NON_NUMERICAL_ERROR:format("#2 cornerRadius", "RoundCorners.roundElement"))
