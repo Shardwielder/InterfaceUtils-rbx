@@ -67,7 +67,11 @@ local function prepareGuiObject(imageAssetId, guiObject, cornerRadius)
 end
 
 --[[
-    
+    Give the `guiObject` Frame, ImageLabel, or ImageButton instance a rounded
+    background of `cornerRadius`
+
+    Returns the rounded version of the `guiObject` instance. This may be a different object
+    if the instance had to be converted, such as from a Frame to an ImageLabel.
 ]]
 function RoundCorners.roundElement(guiObject, cornerRadius)
     assert(guiObject, NON_COMPATIBLE_GUI_ERROR:format("#1 guiObject", "RoundCorners.roundElement"))
