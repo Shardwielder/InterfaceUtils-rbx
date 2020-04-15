@@ -1,0 +1,14 @@
+# Roblox model and place files in the root, used for debugging
+/*.rbxm
+/*.rbxmx
+/*.rbxl
+/*.rbxlx
+
+# Roblox Studio holds 'lock' files on places
+*.rbxl.lock
+*.rbxlx.lock
+
+# Other
+.DS_STORE
+.vscode
+.out
