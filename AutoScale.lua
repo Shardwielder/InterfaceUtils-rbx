@@ -52,7 +52,7 @@ local AutoScale = {}
     It is suggested that this is done with a single base ScreenGui.
 ]]
 function AutoScale.addElement(guiObject)
-    assert(typeof(guiObject) == "Instance", NON_INSTANCE_ERROR:format("#1 guiObject", "Scaling:addElement"))
+    assert(typeof(guiObject) == "Instance", NON_INSTANCE_ERROR:format("#1 guiObject", "Scaling.addElement"))
     local scaleObject = Instance.new("UIScale")
     scaleObjects.Name = "AutoScreenScale"
     scaleObject.Scale = 1
