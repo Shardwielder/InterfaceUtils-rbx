@@ -29,7 +29,7 @@ local CIRCULAR_IMAGES = {
     [10] = "rbxassetid://4900819170",
 }
 
-local transitionableProperties = {
+local INHERITABLE_PROPERTIES = {
     "ZIndex", "ClipsDescendants", "Visible", "AutoLocalize", "RootLocalizationTable", "LayoutOrder",
     "Name", "Size", "Position", "AnchorPoint", "Rotation", "Active", "Selectable",
 }
@@ -39,7 +39,7 @@ local RoundCorners = {}
 local function prepareGuiObject(imageAssetId, guiObject, cornerRadius)
     if guiObject.ClassName == "Frame" then
         local newGuiObject = Instance.new("ImageLabel")
-        for i, propertyName in ipairs(transitionableProperties) do
+        for i, propertyName in ipairs(INHERITABLE_PROPERTIES) do
             newGuiObject[propertyName] = guiObject[propertyName]
         end
         newGuiObject.ImageColor3 = guiObject.BackgroundColor3
