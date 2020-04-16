@@ -9,10 +9,7 @@
     ImageTransparency properties of the generated ImageLabel.
 ]]
 
-local NON_NUMERICAL_ERROR = "Bad argument %s to %s: must be a number"
-local NON_COMPATIBLE_GUI_ERROR = "Bad argument %s to %s: must be a ImageLabel, ImageButton, or Frame"
-local IMPOSSIBLE_RADIUS_ERROR = "Bad argument %s to %s: corner radius must be greater than 0"
-local NO_RADIUS_ERROR = "Bad argument %s to %s: no image present for a corner radius of %s"
+local INCOMPATIBLE_GUI_ERRORR = "Bad argument #1 `guiObject`: must be a Frame, ImageLabel, or ImageButton"
 
 --[[
     The key for each entry corresponds to the corner radius of the
@@ -72,19 +69,38 @@ end
 
     Returns the rounded version of the `guiObject` instance. This may be a different object
     if the instance had to be converted, such as from a Frame to an ImageLabel.
+
+    Alternatively, the 1st argument `guiObject` can be an array of GUI instances which you
+    would like to round with the same corner radius. This is only intended for use with ImageLabel
+    and ImageButton instances, as Frames will have to be converted into an ImageLabel,
+    and you will not have a reference to the new instance.
+
+    If the `cornerRadius` is 0, the original GUI instance is returned without any modifications.
 ]]
-function RoundCorners.roundElement(guiObject, cornerRadius)
-    assert(guiObject, NON_COMPATIBLE_GUI_ERROR:format("#1 guiObject", "RoundCorners.roundElement"))
-    assert(type(cornerRadius) == "number", NON_NUMERICAL_ERROR:format("#2 cornerRadius", "RoundCorners.roundElement"))
-    assert(cornerRadius > 0, IMPOSSIBLE_RADIUS_ERROR:format("#2 cornerRadius", "RoundCorners.roundElement"))
+local function roundElement(guiObject, cornerRadius)
+    assert(type(cornerRadius) == "number", "Bad argument #2 `cornerRadius`: must be a number")
+
+    if type(guiObject) == "table" then
+        for k, object in pairs(guiObject) do
+            roundElement(object, cornerRadius)
+        end
+        return
+    else
+        assert(guiObject, INCOMPATIBLE_GUI_ERRORR)
+    end
+
+    if cornerRadius == 0 then
+        return guiObject
+    end
 
     local imageAssetId = CIRCULAR_IMAGES[cornerRadius]
-    assert(imageAssetId, NO_RADIUS_ERROR:format("#2 cornerRadius", "RoundCorners.roundElement", cornerRadius))
+    assert(imageAssetId, "Bad argument #2 `cornerRadius`: no image asset for that radius could be found in `CIRCULAR_IMAGES`")
 
     guiObject = prepareGuiObject(imageAssetId, guiObject, cornerRadius)
-    assert(guiObject, NON_COMPATIBLE_GUI_ERROR:format("#1 guiObject", "RoundCorners.roundElement"))
+    assert(guiObject, INCOMPATIBLE_GUI_ERRORR)
 
     return guiObject
 end
+RoundCorners.roundElement = roundElement
 
 return RoundCorners
