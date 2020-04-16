@@ -1,2 +1,4 @@
 # InterfaceUtils-rbx
-A collection of reusable modules, elements and util functions I've made that I've found useful for making and improving UI in Roblox games.
+A collection of reusable modules, elements, util functions and basic image by me that I've found useful for making quality UI in Roblox games.
+
+Documentation included within each file
